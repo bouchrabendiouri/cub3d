@@ -6,13 +6,38 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 10:01:29 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/02 14:17:32 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/03 09:20:34 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3D.h"
 
-void check_if_ValidMap(char *map, t_GlobaleData *gameMap)
+int check_map_delimited(t_Map* map)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			if (map->data[i][j] == '0' && (i == 0 || j == 0 ||
+			i == map->height - 1 || j == map->width - 1 ||
+			map->data[i - 1][j] == ' ' || map->data[i + 1][j] == ' ' ||
+			map->data[i][j - 1] == ' ' || map->data[i][j + 1] == ' '))
+				return 0;
+			j++;
+		}
+		i++;
+	}
+	return 1;
+}
+
+//player position
+
+void check_map_elements(char *map, t_GlobaleData *gameMap)
 {
     int i;
     int n;
@@ -42,58 +67,6 @@ void check_if_ValidMap(char *map, t_GlobaleData *gameMap)
     }
     if (n != 1)
         write(0,"LA CARTE N'EST PAS VALIDE (N S E W) !\n", 40); 
-}
-
-int	horizontal_map(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '1' && map[i][j] != ' ')
-			{
-				if (map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
-				{
-					write(1, "map n'est pas valide (h)\n", 23);
-					return (0);
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	verticale_map(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '1' && map[i][j] != ' ')
-			{
-				if (map[i - 1][j] == ' ' || map[i + 1][j] == ' ')
-				{
-					write(1, "map n'est pas valide (v)\n", 23);
-					return (0);
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
 }
 
 char	*fixline(char *line, int maxlen)

@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:23:24 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/02 15:49:28 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:43:20 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,170 @@
 #define MAX_LINE_LENGTH 256
 
 
-void set_texture_hlp(t_GlobaleData* data, t_Texture *texture , char identifier){
-   if (identifier == 'N') {
-         data->north = texture;
-    } else if (identifier == 'S') {
-         data->south = texture;
-    } else if (identifier == 'W') {
-          data->west = texture;
-    } else if (identifier == 'E') {
-         data->east = texture;
-    } else {
-          write(0, "Erreur : identifiant de texture invalide !\n", 46);
-          exit(1);
-    }
+void	north_texture(t_GlobaleData *data, char *ptr)
+{
+	int	i;
+
+	i = 0;
+	(*ptr) += 2;
+	if (ptr[2] != ' ')
+  {
+		write(2,"THE PATH IS NOT VALID (nourth)!\n",40);
+    exit(1);
+  }
+	//if (data->nourth)
+		//write(0,"THE TEXTURE DUPLICATE !\n",40);
+	while (ptr[i] != '\n')
+		i++;
+	ptr++;
+  data->north = malloc(sizeof(t_Texture));
+	data->north->path = malloc((i + 1) * sizeof(char));
+
+	i = 0;
+	while (*ptr != '\n')
+	{
+    data->north->path[i++] = *ptr;
+		(*ptr)++;
+	}
+	data->north->path[i] = '\0';
+	//int fd = open(data->north->path, O_RDONLY);
+	//if (fd < 0)
+		//write(0,"Error: open image (north)\n", 40);
 }
 
-//Définit la textures
-void set_texture(t_GlobaleData* data, char* line, char identifier) {
-    t_Texture *texture;
-    char* texture_path = line;
-    texture = malloc(sizeof(t_Texture));
-    texture->path = malloc(ft_strlen(line) + 1);
-    while (*texture_path == ' ') 
-      texture_path++;
-    set_texture_hlp(data, texture, identifier);
-    ft_strcpy(texture->path, texture_path);
-      texture->img = mlx_xpm_file_to_image(data->mlx, texture->path, &texture->width, &texture->height);
-    if (texture->img == NULL) {
-         write(0, "Erreur : ouverture de l'image !\n", 51);
-         exit(1);
-    }
+void	south_texture(t_GlobaleData *data, char *ptr)
+{
+	int	i;
+
+	i = 0;
+	(*ptr) += 2;
+	if (ptr[2] != ' '){
+    
+		write(2,"THE PATH IS NOT VALID (south)!\n",34);
+    exit(1);
+  }
+	//if (data->south)
+		//write(0,"THE TEXTURE DUPLICATE !\n",40);
+	while (ptr[i] != '\n')
+		i++;
+	ptr++;
+  data->south = malloc(sizeof(t_Texture));
+	data->south->path = malloc((i + 1) * sizeof(char));
+
+	i = 0;
+	while (*ptr != '\n')
+	{
+    data->south->path[i++] = *ptr;
+		(*ptr)++;
+  }
+	data->south->path[i] = '\0';
+	//int fd = open(data->south->path, O_RDONLY);
+	//if (fd < 0)
+		//write(0,"Error: open image (south)\n", 40);
     
 }
 
+void	east_texture(t_GlobaleData *data, char *ptr)
+{
+int	i;
+
+	i = 0;
+	(*ptr) += 2;
+	if (ptr[2] != ' ')
+  {
+		write(2,"THE PATH IS NOT VALID (east) !\n",40);
+    exit(1);
+  }
+	//if (data->south)
+		//write(0,"THE TEXTURE DUPLICATE !\n",40);
+	while (ptr[i] != '\n')
+		i++;
+	ptr++;
+  data->east = malloc(sizeof(t_Texture));
+	data->east->path = malloc((i + 1) * sizeof(char));
+
+	i = 0;
+	while (*ptr != '\n')
+	{
+    data->east->path[i++] = *ptr;
+		(*ptr)++;
+	}
+	data->east->path[i] = '\0';
+	//int fd = open(data->east->path, O_RDONLY);
+	//if (fd < 0)
+		//write(0,"Error: open image (east)\n", 40);
+}
+
+void	west_texture(t_GlobaleData *data, char *ptr)
+{
+	int	i;
+
+	i = 0;
+	(*ptr) += 2;
+	if (ptr[2] != ' ')
+  {
+		write(2,"THE PATH IS NOT VALID (west)!\n",40);
+    exit(1);
+  }
+	//if (data->south)
+		//write(0,"THE TEXTURE DUPLICATE !\n",40);
+	while (ptr[i] != '\n')
+		i++;
+	ptr++;
+  data->west = malloc(sizeof(t_Texture));
+	data->west->path = malloc((i + 1) * sizeof(char));
+
+	i = 0;
+	while (*ptr != '\n')
+	{
+    data->west->path[i++] = *ptr;
+		(*ptr)++;
+	}
+	data->west->path[i] = '\0';
+	//int fd = open(data->south->path, O_RDONLY);
+	//if (fd < 0)
+		//write(0,"Error: open image (west)\n", 40);
+}
+
+void fill_textures(t_GlobaleData *data, char *ptr)
+{
+    while (*ptr)
+    {
+        if (ptr[0] == 'N' && ptr[1] == 'O')
+        {
+            north_texture(data,ptr);
+        }
+        else if (ptr[0] == 'S' && ptr[1] == 'O')
+        {
+            south_texture(data, ptr);
+        }
+        else if (ptr[0] == 'W' && ptr[1] == 'E')
+        {
+            west_texture(data, ptr);
+        }
+        else if (ptr[0] == 'E' && ptr[1] == 'A')
+        {
+            east_texture(data, ptr);
+        }
+        else if (ptr[0] == 'F' && ptr[1] && ptr[1] == ' ')
+        {
+            set_floor_color(data, ptr);
+        }
+        else if (ptr[0] == 'C' && ptr[1] && ptr[1] == ' ')
+        {
+            set_ceiling_color(data, ptr);
+        }
+        /*else if((ptr[0] != 'N' && ptr[1] != 'O') || (ptr[0] != 'S' && ptr[1] != 'O') || 
+        (ptr[0] != 'W' && ptr[1] != 'E') || (ptr[0] != 'E' && ptr[1] != 'A') || 
+        (ptr[0] != 'C' && ptr[1] != ' ') || (ptr[0] != 'F' && ptr[1] != ' ')
+        || (ptr[0] != 0))
+        {
+            write(2, "error in file\n", 15);
+            break;
+        }*/
+        ptr++;
+    }
+}
 int	count_vergules(char *str)
 {
 	int		i;
@@ -84,7 +215,7 @@ int set_fl_color_hpl(char *str , int *r, int *g, int *b)
             str++;
      else 
     {
-      write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 48);
+      write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 60);
       exit(1);
     }
   }
@@ -92,7 +223,7 @@ int set_fl_color_hpl(char *str , int *r, int *g, int *b)
 }
 void format_F_eror(char *line){
   if (ft_strncmp(line, "F ", 1) != 0) {
-    write(STDERR_FILENO, "Erreur : format de ligne invalide (sol) !\n", 48);
+    write(STDERR_FILENO, "Erreur : format de ligne invalide (sol) !\n", 60);
     exit(1);
   }
 }
@@ -113,11 +244,11 @@ void set_floor_color(t_GlobaleData *data, char *line) {
       rgb_str++;
   values_read = set_fl_color_hpl(rgb_str,&r , &g ,&b);
   if (values_read != 3 || count_vergules(rgb_str) !=2) {
-    write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 48);
+    write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 60);
     exit(1);
   }
   if (!is_valid_rgb(r, g, b) ) {
-    write(STDERR_FILENO, "Erreur : valeur RGB invalide (sol) !\n", 48);
+    write(STDERR_FILENO, "Erreur : valeur RGB invalide (sol) !\n", 60);
     exit(1);
   }
   data->floorColor.red = r;
@@ -144,7 +275,7 @@ int set_CE_color_hpl(char *str , int *r, int *g, int *b)
             str++;
      else 
     {
-      write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 48);
+      write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 60);
       exit(1);
     }
   }
@@ -153,7 +284,7 @@ int set_CE_color_hpl(char *str , int *r, int *g, int *b)
 
 void format_C_eror(char *line){
   if (ft_strncmp(line, "C", 1) != 0) {
-    write(STDERR_FILENO, "Erreur : format de ligne invalide (ceil) !\n", 48);
+    write(STDERR_FILENO, "Erreur : format de ligne invalide (ceil) !\n", 60);
     exit(1);
   }
 }
@@ -174,7 +305,7 @@ void set_ceiling_color(t_GlobaleData *data, char *line) {
       rgb_str++;
   values_read = set_CE_color_hpl(rgb_str,&r , &g ,&b);
   if (values_read != 3) {
-    write(STDERR_FILENO, "Erreur : format de couleur invalide (ceil) !\n", 48);
+    write(STDERR_FILENO, "Erreur : format de couleur invalide (ceil) !\n", 60);
     exit(1);
   }
   if (!is_valid_rgb(r, g, b) ) {

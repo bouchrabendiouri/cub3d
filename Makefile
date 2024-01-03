@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SRCPA = parsing
 LIBFT = libft/libft.a
-LIB =  -lmlx -framework OpenGL -framework AppKit -O3
+LIB =  -lmlx -framework OpenGL -framework AppKit -O3 -fsanitize=address -g3
 SRCP = $(wildcard $(SRCPA)/*.c)
 OBJ = $(SRCP:.c=.o)
 

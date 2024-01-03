@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:36:10 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/02 17:44:01 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/03 14:57:04 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct Position {
   float angle; // Direction in degrees (0-360)
 }t_Position ;
 
-  typedef struct Map {
-  char* data;           // 2D array of characters representing the map layout
+typedef struct Map {
+  char** data;           // 2D array of characters representing the map layout
   int width;            // Width of the map in characters
   int height;           // Height of the map in characters
   t_Position playerPosition; // Player's position and orientation
@@ -53,7 +53,7 @@ typedef struct Position {
   t_Texture* east; // Pointer to the East wall texture
   t_Texture* west;// Pointer to the West wall texture
   void* mlx; 
-  void *win;    // Pointeur vers MLX
+  void* win;    // Pointeur vers MLX
   char **file_content;
   t_Color floorColor;   // Floor color
   t_Color ceilingColor; // Ceiling color
@@ -61,16 +61,13 @@ typedef struct Position {
   t_Position playerPosition;  // Player's position and orientation
 }t_GlobaleData;
 
-void check_if_ValidMap(char *map, t_GlobaleData *gameMap);
-int	horizontal_map(char **map);
-int	verticale_map(char **map);
+void nit_game(t_GlobaleData *game);
+void check_map_elements(char *map, t_GlobaleData *gameMap);
 char	*fixline(char *line, int maxlen);
 int check_name_cub(char *str);
 int  is_valid_rgb(int r, int g, int b);
  int get_number_of_rows(char **map);
  int	getsize_largline(char **map);
- void set_texture_hlp(t_GlobaleData* data, t_Texture *texture , char identifier);
- void set_texture(t_GlobaleData* data, char* line, char identifier);
  int	count_vergules(char *str);
  int set_fl_color_hpl(char *str , int *r, int *g, int *b);
  void set_floor_color(t_GlobaleData *data, char *line);
@@ -82,12 +79,13 @@ int  is_valid_rgb(int r, int g, int b);
  int in_set(char c);
  int	getsize_largline(char **map);
  int	nbr_of_lines(char *filename);
- void get_file_content(t_GlobaleData *ptr, int i, char *filename);
+ void get_file_content(t_GlobaleData *ptr, char *filename);
  void parse(int ac, char **av, t_GlobaleData *ptr);
  void	fill_textures(t_GlobaleData *data, char *ptr);
- void	west_texture(t_GlobaleData *data, char **ptr);
- void	north_texture(t_GlobaleData *data, char **ptr);
- void	east_texture(t_GlobaleData *data, char **ptr);
- void	south_texture(t_GlobaleData *data, char **ptr);
+ void	west_texture(t_GlobaleData *data, char *ptr);
+ void	north_texture(t_GlobaleData *data, char *ptr);
+ void	east_texture(t_GlobaleData *data, char *ptr);
+ void	south_texture(t_GlobaleData *data, char *ptr);
+ int check_map_delimited(t_Map* map);
 
 # endif
