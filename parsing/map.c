@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 10:01:29 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/03 09:20:34 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:24:15 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,42 @@ int check_map_delimited(t_Map* map)
 	return 1;
 }
 
-//player position
-
-void check_map_elements(char *map, t_GlobaleData *gameMap)
+void check_player_pos(t_Map *gameMap)
 {
-    int i;
-    int n;
+    int x ;
+    int y;
+	int found = 0;
 
-    n = 0;
-    i = -1;
-    while (map[++i])
+    y = 0;
+    while(y < gameMap->height)
     {
-        if(map[i] == 'N' || map[i] == 'S' || map[i] == 'E' || map[i] == 'W')
+        x = 0;
+        while(x < gameMap->width)
         {
-            n += 1;
-            gameMap->playerPosition.x = i % gameMap->map.width;
-            gameMap->playerPosition.y = i / gameMap->map.width;
-            if (map[i] == 'N')
-                gameMap->playerPosition.angle = 0;
-            else if (map[i] == 'S')
-                gameMap->playerPosition.angle = 180;
-            else if (map[i] == 'E') 
-                gameMap->playerPosition.angle = 90;
-            else if (map[i] == 'W')
-                gameMap->playerPosition.angle = 270;
+            if (gameMap->data[x][y] == 'N' || gameMap->data[x][y] == 'S' || gameMap->data[x][y] == 'E' || gameMap->data[x][y] == 'W')
+            {
+				found = 1;
+                gameMap->playerPosition.x = x;
+                gameMap->playerPosition.y = y;
+                if (gameMap->data[x][y] == 'N')
+                    gameMap->playerPosition.angle = 0;
+                else if (gameMap->data[x][y] == 'S')
+                    gameMap->playerPosition.angle = 180;
+                else if (gameMap->data[x][y] == 'E')
+                    gameMap->playerPosition.angle = 90;
+                else if (gameMap->data[x][y] == 'W')
+                    gameMap->playerPosition.angle = 270;
+                gameMap->data[x][y] = '0';
+                return;
+            }
+            x++;
         }
-        else if (map[i] == '\n' && map[i + 1] == '\n')
-            write(0,"DEUX SAUTS DE LIGNE CONSECUTIFS !\n",40);
-        else if (map[i] != '0' && map[i] != '1' && map[i] != ' ' && map[i] != '\n')
-            write(0,"IL Y A AUTRE CHOSE QUE (1 0 N S E W) DANS LA CARTE !\n", 55);
+        y++;
     }
-    if (n != 1)
-        write(0,"LA CARTE N'EST PAS VALIDE (N S E W) !\n", 40); 
+	if (found == 0)
+    	write(2, "LE JOUEUR N'EST PAS TROUVE DANS LA CARTE !\n", 47);
 }
+
 
 char	*fixline(char *line, int maxlen)
 {
@@ -92,5 +95,26 @@ char	*fixline(char *line, int maxlen)
 	return (new);
 }
 
-void parse_map_full()
-{}
+void ft_map(char *str_map) {
+	t_Map *map = malloc(sizeof(t_Map));
+    int i;
+
+    i = 0;
+	printf("DEBUG\n");
+    map->data = (char **)malloc(sizeof(char *) * (map->width+ 1));
+
+    if (!map->data)
+        write(2, "ERROR ALLOCATION\n", 16);
+
+    while (str_map[i]) {
+		
+       	map->data[i] = fixline(str_map, map->width);
+        i++;
+    }
+
+    if (check_map_delimited(map)) {
+        check_player_pos(map);
+    } else {
+        write(2, "MAP DELIMITATION ERROR\n", 23);
+    }
+}

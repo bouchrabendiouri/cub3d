@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:23:24 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/03 17:43:20 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:17:15 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,11 @@ void fill_textures(t_GlobaleData *data, char *ptr)
         {
             set_ceiling_color(data, ptr);
         }
+        else if ((*ptr == ' ' || *ptr == '1'))
+		    {
+			      ft_map(ptr);
+			      break ;
+		    }
         /*else if((ptr[0] != 'N' && ptr[1] != 'O') || (ptr[0] != 'S' && ptr[1] != 'O') || 
         (ptr[0] != 'W' && ptr[1] != 'E') || (ptr[0] != 'E' && ptr[1] != 'A') || 
         (ptr[0] != 'C' && ptr[1] != ' ') || (ptr[0] != 'F' && ptr[1] != ' ')

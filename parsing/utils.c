@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 13:46:30 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/03 11:07:46 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:24:31 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,33 @@ int  is_valid_rgb(int r, int g, int b) {
     return(1);
   return(0);
 }
- int get_number_of_rows(char **map) {
+ int get_number_of_rows(char *map) {
     int count = 0;
-    while (map[count] != NULL) {
+    while (map[count]) {
         count++;
     }
     return count;
 }
 
-int	getsize_largline(char **map)
+int	getsize_largline(char *map)
 {
 	int	i;
 	size_t	max;
 
 	i = -1;
-	max = ft_strlen(map[0]);
+	max = ft_strlen(&map[0]);
 	while (map[++i])
-		if (ft_strlen(map[i]) > max)
-			max = ft_strlen(map[i]);
+		if (ft_strlen(&map[i]) > max)
+			max = ft_strlen(&map[i]);
 	return (max);
+}
+
+int	getsizemap(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
 }

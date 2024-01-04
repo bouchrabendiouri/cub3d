@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:36:10 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/03 14:57:04 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:20:39 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 #define MAX_LINE_LENGTH 256
+
+typedef struct MapLine {
+    char *content;
+    struct MapLine *next;
+} MapLine;
 
 typedef struct Texture {
   char* path; // Path to the texture image file
@@ -36,7 +41,7 @@ typedef struct Position {
 typedef struct Map {
   char** data;           // 2D array of characters representing the map layout
   int width;            // Width of the map in characters
-  int height;           // Height of the map in characters
+  int height;          // Height of the map in characters
   t_Position playerPosition; // Player's position and orientation
 }t_Map;
 
@@ -58,16 +63,20 @@ typedef struct Map {
   t_Color floorColor;   // Floor color
   t_Color ceilingColor; // Ceiling color
   t_Map map;            // The game map with additional player data
+  MapLine *mapline;       // head of linked list
   t_Position playerPosition;  // Player's position and orientation
 }t_GlobaleData;
 
 void nit_game(t_GlobaleData *game);
-void check_map_elements(char *map, t_GlobaleData *gameMap);
+void check_player_pos(t_Map *gameMap);
+int check_map_delimited(t_Map* map);
 char	*fixline(char *line, int maxlen);
+void ft_map(char *str_map);
 int check_name_cub(char *str);
 int  is_valid_rgb(int r, int g, int b);
- int get_number_of_rows(char **map);
- int	getsize_largline(char **map);
+ int get_number_of_rows(char *map);
+ int	getsize_largline(char *map);
+ int	getsizemap(char **map);
  int	count_vergules(char *str);
  int set_fl_color_hpl(char *str , int *r, int *g, int *b);
  void set_floor_color(t_GlobaleData *data, char *line);
@@ -77,7 +86,6 @@ int  is_valid_rgb(int r, int g, int b);
  void set_ceiling_color(t_GlobaleData *data, char *line);
  int is_space(int c);
  int in_set(char c);
- int	getsize_largline(char **map);
  int	nbr_of_lines(char *filename);
  void get_file_content(t_GlobaleData *ptr, char *filename);
  void parse(int ac, char **av, t_GlobaleData *ptr);
