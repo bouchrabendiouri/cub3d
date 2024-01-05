@@ -17,10 +17,7 @@
 //     //
 // }
 
-void nit_game(t_GlobaleData *game) {
-    game->mlx = mlx_init();
-    game->file_content = NULL;
-}
+
 
 /*int main (int ac, char **av)
 {
@@ -40,17 +37,17 @@ void nit_game(t_GlobaleData *game) {
 
     return EXIT_SUCCESS;
     return 0;
-}*/
+}
 void free_texture(t_Texture *texture)
 {
     t_GlobaleData data;
     if (texture)
     {
         free(texture->path);
-        mlx_destroy_image(data.mlx, texture->img);
+       // mlx_destroy_image(data.mlx, texture->img);
         free(texture);
     }
-}
+}*/
 
 int main(int ac, char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:23:24 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/04 15:17:15 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:53:32 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,33 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-# include <mlx.h>
+//# include <mlx.h>
 # include <fcntl.h>
 #define MAX_LINE_LENGTH 256
 
 
-void	north_texture(t_GlobaleData *data, char *ptr)
+void	north_texture(t_GlobaleData *data, char **ptr)
 {
 	int	i;
 
 	i = 0;
 	(*ptr) += 2;
-	if (ptr[2] != ' ')
+	if (*ptr == NULL || **ptr != ' ')
   {
 		write(2,"THE PATH IS NOT VALID (nourth)!\n",40);
     exit(1);
   }
 	//if (data->nourth)
 		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[i] != '\n')
+	while (ptr[0][i] != '\n')
 		i++;
-	ptr++;
   data->north = malloc(sizeof(t_Texture));
 	data->north->path = malloc((i + 1) * sizeof(char));
 
 	i = 0;
-	while (*ptr != '\n')
+	while (**ptr != '\n')
 	{
-    data->north->path[i++] = *ptr;
+    data->north->path[i++] = **ptr;
 		(*ptr)++;
 	}
 	data->north->path[i] = '\0';
@@ -50,61 +49,58 @@ void	north_texture(t_GlobaleData *data, char *ptr)
 		//write(0,"Error: open image (north)\n", 40);
 }
 
-void	south_texture(t_GlobaleData *data, char *ptr)
+void	south_texture(t_GlobaleData *data, char **ptr)
 {
 	int	i;
 
 	i = 0;
 	(*ptr) += 2;
-	if (ptr[2] != ' '){
-    
-		write(2,"THE PATH IS NOT VALID (south)!\n",34);
+	if (*ptr == NULL || **ptr != ' ')
+  {
+		write(2,"THE PATH IS NOT VALID (south)!\n",40);
     exit(1);
   }
-	//if (data->south)
+	//if (data->nsouth)
 		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[i] != '\n')
+	while (ptr[0][i] != '\n')
 		i++;
-	ptr++;
   data->south = malloc(sizeof(t_Texture));
 	data->south->path = malloc((i + 1) * sizeof(char));
 
 	i = 0;
-	while (*ptr != '\n')
+	while (**ptr != '\n')
 	{
-    data->south->path[i++] = *ptr;
+    data->south->path[i++] = **ptr;
 		(*ptr)++;
-  }
+	}
 	data->south->path[i] = '\0';
 	//int fd = open(data->south->path, O_RDONLY);
 	//if (fd < 0)
 		//write(0,"Error: open image (south)\n", 40);
-    
 }
 
-void	east_texture(t_GlobaleData *data, char *ptr)
+void	east_texture(t_GlobaleData *data, char **ptr)
 {
 int	i;
 
 	i = 0;
 	(*ptr) += 2;
-	if (ptr[2] != ' ')
+	if (*ptr == NULL || **ptr != ' ')
   {
-		write(2,"THE PATH IS NOT VALID (east) !\n",40);
+		write(2,"THE PATH IS NOT VALID (east)!\n",40);
     exit(1);
   }
-	//if (data->south)
+	//if (data->east)
 		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[i] != '\n')
+	while (ptr[0][i] != '\n')
 		i++;
-	ptr++;
   data->east = malloc(sizeof(t_Texture));
 	data->east->path = malloc((i + 1) * sizeof(char));
 
 	i = 0;
-	while (*ptr != '\n')
+	while (**ptr != '\n')
 	{
-    data->east->path[i++] = *ptr;
+    data->east->path[i++] = **ptr;
 		(*ptr)++;
 	}
 	data->east->path[i] = '\0';
@@ -113,78 +109,65 @@ int	i;
 		//write(0,"Error: open image (east)\n", 40);
 }
 
-void	west_texture(t_GlobaleData *data, char *ptr)
+void	west_texture(t_GlobaleData *data, char **ptr)
 {
 	int	i;
 
 	i = 0;
 	(*ptr) += 2;
-	if (ptr[2] != ' ')
+	if (*ptr == NULL || **ptr != ' ')
   {
 		write(2,"THE PATH IS NOT VALID (west)!\n",40);
     exit(1);
   }
-	//if (data->south)
+	//if (data->west)
 		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[i] != '\n')
+	while (ptr[0][i] != '\n')
 		i++;
-	ptr++;
   data->west = malloc(sizeof(t_Texture));
 	data->west->path = malloc((i + 1) * sizeof(char));
 
 	i = 0;
-	while (*ptr != '\n')
+	while (**ptr != '\n')
 	{
-    data->west->path[i++] = *ptr;
+    data->west->path[i++] = **ptr;
 		(*ptr)++;
 	}
 	data->west->path[i] = '\0';
-	//int fd = open(data->south->path, O_RDONLY);
+	//int fd = open(data->north->path, O_RDONLY);
 	//if (fd < 0)
-		//write(0,"Error: open image (west)\n", 40);
+		//write(0,"Error: open image (north)\n", 40);
 }
 
 void fill_textures(t_GlobaleData *data, char *ptr)
 {
     while (*ptr)
     {
-        if (ptr[0] == 'N' && ptr[1] == 'O')
+        if (*ptr == 'N' && ptr[1] == 'O')
         {
-            north_texture(data,ptr);
+            north_texture(data,&ptr);
+
         }
-        else if (ptr[0] == 'S' && ptr[1] == 'O')
+        else if (*ptr == 'S' && ptr[1] == 'O')
         {
-            south_texture(data, ptr);
+            south_texture(data, &ptr);
         }
-        else if (ptr[0] == 'W' && ptr[1] == 'E')
+        else if (*ptr == 'W' && ptr[1] == 'E')
         {
-            west_texture(data, ptr);
+            west_texture(data, &ptr);
         }
-        else if (ptr[0] == 'E' && ptr[1] == 'A')
+        else if (*ptr == 'E' && ptr[1] == 'A')
         {
-            east_texture(data, ptr);
+            east_texture(data, &ptr);
         }
-        else if (ptr[0] == 'F' && ptr[1] && ptr[1] == ' ')
+        else if (*ptr == 'F' && ptr[1] && ptr[1] == ' ')
         {
             set_floor_color(data, ptr);
         }
-        else if (ptr[0] == 'C' && ptr[1] && ptr[1] == ' ')
+        else if (*ptr == 'C' && ptr[1] && ptr[1] == ' ')
         {
             set_ceiling_color(data, ptr);
         }
-        else if ((*ptr == ' ' || *ptr == '1'))
-		    {
-			      ft_map(ptr);
-			      break ;
-		    }
-        /*else if((ptr[0] != 'N' && ptr[1] != 'O') || (ptr[0] != 'S' && ptr[1] != 'O') || 
-        (ptr[0] != 'W' && ptr[1] != 'E') || (ptr[0] != 'E' && ptr[1] != 'A') || 
-        (ptr[0] != 'C' && ptr[1] != ' ') || (ptr[0] != 'F' && ptr[1] != ' ')
-        || (ptr[0] != 0))
-        {
-            write(2, "error in file\n", 15);
-            break;
-        }*/
         ptr++;
     }
 }

@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:36:10 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/04 17:20:39 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:32:34 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-# include <mlx.h>
+//# include <mlx.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
 #define MAX_LINE_LENGTH 256
@@ -67,15 +67,16 @@ typedef struct Map {
   t_Position playerPosition;  // Player's position and orientation
 }t_GlobaleData;
 
-void nit_game(t_GlobaleData *game);
-void check_player_pos(t_Map *gameMap);
-int check_map_delimited(t_Map* map);
+void check_player_pos(t_GlobaleData *gameMap);
+int check_map_delimited(t_Map map);
 char	*fixline(char *line, int maxlen);
-void ft_map(char *str_map);
+void ft_map(t_GlobaleData *ptr);
+void  check_map_validity(t_Map map);
+void add_to_List(t_GlobaleData *mapList, char *line);
 int check_name_cub(char *str);
 int  is_valid_rgb(int r, int g, int b);
- int get_number_of_rows(char *map);
- int	getsize_largline(char *map);
+ int get_number_of_rows(MapLine *map);
+ int	getsize_largline(MapLine *map);
  int	getsizemap(char **map);
  int	count_vergules(char *str);
  int set_fl_color_hpl(char *str , int *r, int *g, int *b);
@@ -90,10 +91,9 @@ int  is_valid_rgb(int r, int g, int b);
  void get_file_content(t_GlobaleData *ptr, char *filename);
  void parse(int ac, char **av, t_GlobaleData *ptr);
  void	fill_textures(t_GlobaleData *data, char *ptr);
- void	west_texture(t_GlobaleData *data, char *ptr);
- void	north_texture(t_GlobaleData *data, char *ptr);
- void	east_texture(t_GlobaleData *data, char *ptr);
- void	south_texture(t_GlobaleData *data, char *ptr);
- int check_map_delimited(t_Map* map);
+ void	west_texture(t_GlobaleData *data, char **ptr);
+ void	north_texture(t_GlobaleData *data, char **ptr);
+ void	east_texture(t_GlobaleData *data, char **ptr);
+ void	south_texture(t_GlobaleData *data, char **ptr);
 
 # endif

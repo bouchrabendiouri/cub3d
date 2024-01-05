@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 11:46:58 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/04 17:26:48 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:51:25 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,14 @@ void parse(int ac, char **av, t_GlobaleData *ptr) {
         exit(EXIT_FAILURE);
     }
     get_file_content(ptr, av[1]);
-    
     while (ptr->file_content[i]) {
+        fill_textures(ptr, ptr->file_content[i]);
+            //printf("file_content: %s\n", ptr->file_content[i]);
         if(ptr->file_content[i][0] == ' ' || ptr->file_content[i][0] == '1')
         {
             add_to_List(ptr, ptr->file_content[i]);
-            ptr->map.height = get_number_of_rows(ptr->mapline);
-            ptr->map.width = getsize_largline(ptr->mapline);
         }
-        fill_textures(ptr, ptr->file_content[i]);
         i++;
-    }
+}
+    ft_map(ptr);
 }
