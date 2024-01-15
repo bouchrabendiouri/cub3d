@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:13:26 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/15 17:22:12 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:13:24 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void	set_floor_color(t_GlobaleData *data, char *line)
 	rgb_str = ft_concat_split(rgb_ports);
 	printf("here\n");
 	ft_free_split(rgb_ports);
-	system("leaks cub3D");
-	exit(0);
 	if (set_fl_color_hpl(rgb_str, &r, &g, &b) != 3 || cnt_vrgls(rgb_str) != 2
 		|| checkcolor(rgb_str) == 0)
 		print_error("Erreur :\nformat de couleur invalide (sol) !\n", 1);

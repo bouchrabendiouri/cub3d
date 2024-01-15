@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:22:56 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/15 17:10:04 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:15:42 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ char	**ft_split_and_trim(char *line)
 {
 	int		i;
 	char	**split;
+	char	*temp;
 
 	i = 0;
 	split = ft_split(line, ',');
 	while (split[i])
 	{
+		temp = split[i];
 		split[i] = ft_strtrim(split[i], " ");
+		free(temp);
 		i++;
 	}
-
 	return (split);
 }
 
