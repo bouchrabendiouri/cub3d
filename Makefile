@@ -1,6 +1,6 @@
 NAME = cub3D
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CC = cc -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 SRCPA = parsing
 LIBFT = libft/libft.a
 #LIB =  -lmlx -framework OpenGL -framework AppKit -O3 -fsanitize=address -g3

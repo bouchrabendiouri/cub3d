@@ -5,302 +5,137 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/27 10:23:24 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/05 12:53:32 by bbendiou         ###   ########.fr       */
+/*   Created: 2024/01/10 10:45:47 by bbendiou          #+#    #+#             */
+/*   Updated: 2024/01/12 14:04:04 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-//# include <mlx.h>
-# include <fcntl.h>
-#define MAX_LINE_LENGTH 256
-
 
 void	north_texture(t_GlobaleData *data, char **ptr)
 {
-	int	i;
+	int		i;
+	char	**words;
 
 	i = 0;
 	(*ptr) += 2;
+	if (data->north != NULL)
+		print_error("Error:\nDuplicate north texture!\n", 1);
 	if (*ptr == NULL || **ptr != ' ')
-  {
-		write(2,"THE PATH IS NOT VALID (nourth)!\n",40);
-    exit(1);
-  }
-	//if (data->nourth)
-		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[0][i] != '\n')
+		print_error("Error :\nTHE PATH IS NOT VALID (north)!\n", 1);
+	while ((*ptr)[i] != '\n')
 		i++;
-  data->north = malloc(sizeof(t_Texture));
-	data->north->path = malloc((i + 1) * sizeof(char));
-
-	i = 0;
-	while (**ptr != '\n')
+	words = split_after_space_reduction(*ptr);
+	if (words && words[1] == NULL)
 	{
-    data->north->path[i++] = **ptr;
-		(*ptr)++;
+		data->north = malloc(sizeof(t_Texture));
+		data->north->path = ft_strdup(words[0]);
+		ft_free_split(words);
 	}
-	data->north->path[i] = '\0';
-	//int fd = open(data->north->path, O_RDONLY);
-	//if (fd < 0)
-		//write(0,"Error: open image (north)\n", 40);
+	else
+		print_error("Error:\nInvalid path format!\n", 1);
+//int	fd = open(data->north->path, O_RDONLY);
+//if(fd < 0)
+//	print_error("Error:\nopen image (north)\n", 1);
 }
 
 void	south_texture(t_GlobaleData *data, char **ptr)
 {
-	int	i;
+	int		i;
+	char	**words;
 
 	i = 0;
 	(*ptr) += 2;
 	if (*ptr == NULL || **ptr != ' ')
-  {
-		write(2,"THE PATH IS NOT VALID (south)!\n",40);
-    exit(1);
-  }
-	//if (data->nsouth)
-		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[0][i] != '\n')
+		print_error("Error:\nTHE PATH IS NOT VALID (south)!\n", 1);
+	while ((*ptr)[i] != '\n')
 		i++;
-  data->south = malloc(sizeof(t_Texture));
-	data->south->path = malloc((i + 1) * sizeof(char));
-
-	i = 0;
-	while (**ptr != '\n')
+	if (data->south != NULL)
+		print_error("Error:\nDuplicate south texture!\n", 1);
+	words = split_after_space_reduction(*ptr);
+	if (words && words[1] == NULL)
 	{
-    data->south->path[i++] = **ptr;
-		(*ptr)++;
+		data->south = malloc(sizeof(t_Texture));
+		data->south->path = ft_strdup(words[0]);
+		ft_free_split(words);
 	}
-	data->south->path[i] = '\0';
-	//int fd = open(data->south->path, O_RDONLY);
-	//if (fd < 0)
-		//write(0,"Error: open image (south)\n", 40);
+	else
+		print_error("Error:\nInvalid path format!\n", 1);
+//int	fd = open(data->south->path, O_RDONLY);
+//if (fd < 0)
+//	print_error("Error:\nopen image (south)\n", 1);
 }
 
 void	east_texture(t_GlobaleData *data, char **ptr)
 {
-int	i;
+	int		i;
+	char	**words;
 
 	i = 0;
 	(*ptr) += 2;
 	if (*ptr == NULL || **ptr != ' ')
-  {
-		write(2,"THE PATH IS NOT VALID (east)!\n",40);
-    exit(1);
-  }
-	//if (data->east)
-		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[0][i] != '\n')
+		print_error("Error:\nTHE PATH IS NOT VALID (east)!\n", 1);
+	while ((*ptr)[i] != '\n')
 		i++;
-  data->east = malloc(sizeof(t_Texture));
-	data->east->path = malloc((i + 1) * sizeof(char));
-
-	i = 0;
-	while (**ptr != '\n')
+	if (data->east != NULL)
+		print_error("Error:\nDuplicate east texture!\n", 1);
+	words = split_after_space_reduction(*ptr);
+	if (words && words[1] == NULL)
 	{
-    data->east->path[i++] = **ptr;
-		(*ptr)++;
+		data->east = malloc(sizeof(t_Texture));
+		data->east->path = ft_strdup(*words);
+		ft_free_split(words);
 	}
-	data->east->path[i] = '\0';
-	//int fd = open(data->east->path, O_RDONLY);
-	//if (fd < 0)
-		//write(0,"Error: open image (east)\n", 40);
+	else
+		print_error("Error:\nInvalid path format!\n", 1);
+//int fd = open(data->east->path, O_RDONLY);
+//if (fd < 0)
+//	print_error("Error:\nopen image (east)\n", 1);
 }
 
 void	west_texture(t_GlobaleData *data, char **ptr)
 {
-	int	i;
+	int		i;
+	char	**words;
 
 	i = 0;
 	(*ptr) += 2;
 	if (*ptr == NULL || **ptr != ' ')
-  {
-		write(2,"THE PATH IS NOT VALID (west)!\n",40);
-    exit(1);
-  }
-	//if (data->west)
-		//write(0,"THE TEXTURE DUPLICATE !\n",40);
-	while (ptr[0][i] != '\n')
+		print_error("Error:\nTHE PATH IS NOT VALID (west)!\n", 1);
+	while ((*ptr)[i] != '\n')
 		i++;
-  data->west = malloc(sizeof(t_Texture));
-	data->west->path = malloc((i + 1) * sizeof(char));
-
-	i = 0;
-	while (**ptr != '\n')
+	if (data->west != NULL)
+		print_error("Error:\nDuplicate west texture!\n", 1);
+	words = split_after_space_reduction(*ptr);
+	if (words && words[1] == NULL)
 	{
-    data->west->path[i++] = **ptr;
-		(*ptr)++;
+		data->west = malloc(sizeof(t_Texture));
+		data->west->path = ft_strdup(words[0]);
+		ft_free_split(words);
 	}
-	data->west->path[i] = '\0';
-	//int fd = open(data->north->path, O_RDONLY);
-	//if (fd < 0)
-		//write(0,"Error: open image (north)\n", 40);
+	else
+		print_error("Error:\nInvalid path format!\n", 1);
+//int fd = open(data->north->path, O_RDONLY);
+//	if (fd < 0)
+//		print_error("Error:\nopen image (north)\n", 1);
 }
 
-void fill_textures(t_GlobaleData *data, char *ptr)
+void	fill_textures(t_GlobaleData *data, char *ptr)
 {
-    while (*ptr)
-    {
-        if (*ptr == 'N' && ptr[1] == 'O')
-        {
-            north_texture(data,&ptr);
-
-        }
-        else if (*ptr == 'S' && ptr[1] == 'O')
-        {
-            south_texture(data, &ptr);
-        }
-        else if (*ptr == 'W' && ptr[1] == 'E')
-        {
-            west_texture(data, &ptr);
-        }
-        else if (*ptr == 'E' && ptr[1] == 'A')
-        {
-            east_texture(data, &ptr);
-        }
-        else if (*ptr == 'F' && ptr[1] && ptr[1] == ' ')
-        {
-            set_floor_color(data, ptr);
-        }
-        else if (*ptr == 'C' && ptr[1] && ptr[1] == ' ')
-        {
-            set_ceiling_color(data, ptr);
-        }
-        ptr++;
-    }
-}
-int	count_vergules(char *str)
-{
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-		if (str[i++] == ',')
-			count++;
-	return (count);
-}
-
-int set_fl_color_hpl(char *str , int *r, int *g, int *b)
-{
-  int read_value;
-  read_value = 0;
-   while (*str && read_value < 3) {
-    if (ft_isdigit(*str) && !in_set(*str)) {
-            if (read_value == 0)
-                *r = atoi(str);
-            else if (read_value == 1)
-                *g = atoi(str);
-            else if (read_value == 2)
-                *b = atoi(str);
-            read_value++;
-            while (*str && (ft_isdigit(*str)))
-                str++;
-    } else if ((*str == ',' && !in_set(*str)) || is_space(*str)) 
-            str++;
-     else 
-    {
-      write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 60);
-      exit(1);
-    }
-  }
-  return(read_value);
-}
-void format_F_eror(char *line){
-  if (ft_strncmp(line, "F ", 1) != 0) {
-    write(STDERR_FILENO, "Erreur : format de ligne invalide (sol) !\n", 60);
-    exit(1);
-  }
-}
-
-void set_floor_color(t_GlobaleData *data, char *line) {
-  char *rgb_str;
-  int values_read;
-  int r ;
-  int g;
-  int b;
-  r = 0; 
-  g = 0; 
-  b = 0;
-  values_read = 0;
- format_F_eror(line);
-  rgb_str = line + 2;
-  while ((*rgb_str && is_space(*rgb_str)))
-      rgb_str++;
-  values_read = set_fl_color_hpl(rgb_str,&r , &g ,&b);
-  if (values_read != 3 || count_vergules(rgb_str) !=2) {
-    write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 60);
-    exit(1);
-  }
-  if (!is_valid_rgb(r, g, b) ) {
-    write(STDERR_FILENO, "Erreur : valeur RGB invalide (sol) !\n", 60);
-    exit(1);
-  }
-  data->floorColor.red = r;
-  data->floorColor.green = g;
-  data->floorColor.blue = b;
-}
-
-int set_CE_color_hpl(char *str , int *r, int *g, int *b)
-{
-  int read_value;
-  read_value = 0;
-   while (*str && read_value < 3) {
-    if (ft_isdigit(*str) && !in_set(*str)) {
-            if (read_value == 0)
-                *r = atoi(str);
-            else if (read_value == 1)
-                *g = atoi(str);
-            else if (read_value == 2)
-                *b = atoi(str);
-            read_value++;
-            while (*str && (ft_isdigit(*str)))
-                str++;
-    } else if ((*str == ',' && !in_set(*str)) || is_space(*str)) 
-            str++;
-     else 
-    {
-      write(STDERR_FILENO, "Erreur : format de couleur invalide (sol) !\n", 60);
-      exit(1);
-    }
-  }
-  return(read_value);
-}
-
-void format_C_eror(char *line){
-  if (ft_strncmp(line, "C", 1) != 0) {
-    write(STDERR_FILENO, "Erreur : format de ligne invalide (ceil) !\n", 60);
-    exit(1);
-  }
-}
-
-void set_ceiling_color(t_GlobaleData *data, char *line) {
-  char *rgb_str;
-  int values_read;
-  int r ;
-  int g;
-  int b;
-  r = 0; 
-  g = 0; 
-  b = 0;
-  values_read = 0;
- format_C_eror(line);
-  rgb_str = line + 2;
-  while ((*rgb_str && is_space(*rgb_str)))
-      rgb_str++;
-  values_read = set_CE_color_hpl(rgb_str,&r , &g ,&b);
-  if (values_read != 3) {
-    write(STDERR_FILENO, "Erreur : format de couleur invalide (ceil) !\n", 60);
-    exit(1);
-  }
-  if (!is_valid_rgb(r, g, b) ) {
-    write(STDERR_FILENO, "Erreur : valeur RGB invalide (ceil) !\n", 48);
-    exit(1);
-  }
-  data->ceilingColor.red = r;
-  data->ceilingColor.green = g;
-  data->ceilingColor.blue = b;
+	if (*ptr && ft_strncmp(ptr, "NO ", 3) == 0)
+		north_texture(data, &ptr);
+	else if (*ptr && ft_strncmp(ptr, "SO ", 3) == 0)
+		south_texture(data, &ptr);
+	else if (*ptr && ft_strncmp(ptr, "WE ", 3) == 0)
+		west_texture(data, &ptr);
+	else if (*ptr && ft_strncmp(ptr, "EA ", 3) == 0)
+		east_texture(data, &ptr);
+	else if (*ptr && ft_strncmp(ptr, "F ", 2) == 0)
+	{
+		set_floor_color(data, ptr);
+	}
+	else if (*ptr && ft_strncmp(ptr, "C ", 2) == 0)
+		set_ceiling_color(data, ptr);
+	else
+		check_err(ptr);
 }
