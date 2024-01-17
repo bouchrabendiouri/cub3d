@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbendiou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:29:31 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/10 12:40:47 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/cub3d.h"
 
 int	is_space(int c)
 {

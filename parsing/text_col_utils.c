@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   text_col_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:59:02 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/15 17:05:25 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/cub3d.h"
 
 char	**split_after_space_reduction(char *line)
 {
@@ -31,7 +31,6 @@ void	ft_free_split(char **words)
 		i++;
 	}
 	free(words);
-	printf("DEBUG\n");
 }
 
 int	cnt_vrgls(char *str)

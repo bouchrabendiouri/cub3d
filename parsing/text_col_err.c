@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   text_col_err.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:15:56 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/10 16:01:55 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/cub3d.h"
 
 void	check_err(char *ptr)
 {

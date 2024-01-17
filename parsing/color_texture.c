@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   color_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:13:26 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/15 18:13:24 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/cub3d.h"
 
 int	set_fl_color_hpl(char *str, int *r, int *g, int *b)
 {
@@ -76,7 +76,6 @@ void	set_floor_color(t_GlobaleData *data, char *line)
 	format_f_eror(line);
 	rgb_ports = ft_split_and_trim(line + 2);
 	rgb_str = ft_concat_split(rgb_ports);
-	printf("here\n");
 	ft_free_split(rgb_ports);
 	if (set_fl_color_hpl(rgb_str, &r, &g, &b) != 3 || cnt_vrgls(rgb_str) != 2
 		|| checkcolor(rgb_str) == 0)

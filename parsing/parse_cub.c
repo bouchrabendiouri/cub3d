@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:55:15 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/10 17:09:42 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/cub3d.h"
 
 int	check_name_cub(char *str)
 {

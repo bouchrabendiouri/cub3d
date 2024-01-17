@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   texture_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:45:47 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/12 14:04:04 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/cub3d.h"
 
 void	north_texture(t_GlobaleData *data, char **ptr)
 {
 	int		i;
 	char	**words;
+	//int		fd;
 
 	i = 0;
 	(*ptr) += 2;
@@ -34,15 +35,16 @@ void	north_texture(t_GlobaleData *data, char **ptr)
 	}
 	else
 		print_error("Error:\nInvalid path format!\n", 1);
-//int	fd = open(data->north->path, O_RDONLY);
-//if(fd < 0)
-//	print_error("Error:\nopen image (north)\n", 1);
+	/*fd = open(data->north->path, O_RDONLY);
+	if (fd < 0)
+		print_error("Error:\nopen image (north)\n", 1);*/
 }
 
 void	south_texture(t_GlobaleData *data, char **ptr)
 {
 	int		i;
 	char	**words;
+	//int		fd;
 
 	i = 0;
 	(*ptr) += 2;
@@ -61,15 +63,16 @@ void	south_texture(t_GlobaleData *data, char **ptr)
 	}
 	else
 		print_error("Error:\nInvalid path format!\n", 1);
-//int	fd = open(data->south->path, O_RDONLY);
-//if (fd < 0)
-//	print_error("Error:\nopen image (south)\n", 1);
+	/*fd = open(data->south->path, O_RDONLY);
+	if (fd < 0)
+		print_error("Error:\nopen image (south)\n", 1);*/
 }
 
 void	east_texture(t_GlobaleData *data, char **ptr)
 {
 	int		i;
 	char	**words;
+	//int		fd;
 
 	i = 0;
 	(*ptr) += 2;
@@ -88,15 +91,16 @@ void	east_texture(t_GlobaleData *data, char **ptr)
 	}
 	else
 		print_error("Error:\nInvalid path format!\n", 1);
-//int fd = open(data->east->path, O_RDONLY);
-//if (fd < 0)
-//	print_error("Error:\nopen image (east)\n", 1);
+	/*fd = open(data->east->path, O_RDONLY);
+	if (fd < 0)
+		print_error("Error:\nopen image (east)\n", 1);*/
 }
 
 void	west_texture(t_GlobaleData *data, char **ptr)
 {
 	int		i;
 	char	**words;
+	//int		fd;
 
 	i = 0;
 	(*ptr) += 2;
@@ -115,9 +119,9 @@ void	west_texture(t_GlobaleData *data, char **ptr)
 	}
 	else
 		print_error("Error:\nInvalid path format!\n", 1);
-//int fd = open(data->north->path, O_RDONLY);
-//	if (fd < 0)
-//		print_error("Error:\nopen image (north)\n", 1);
+	/*fd = open(data->north->path, O_RDONLY);
+	if (fd < 0)
+		print_error("Error:\nopen image (north)\n", 1);*/
 }
 
 void	fill_textures(t_GlobaleData *data, char *ptr)
