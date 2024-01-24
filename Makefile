@@ -17,9 +17,11 @@ SRC =  ./parsing/color_texture.c \
 		./src/key_hok.c \
 		./src/ray_cast.c \
 		./src/textur_mapping.c \
+		./src/corr_ray.c \
+		./src/init.c
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
 OBJ = $(SRC:.c=.o)
 
@@ -42,4 +44,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re : fclean all
-

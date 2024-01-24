@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:41:05 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:31:02 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ void	check_player_pos_help(t_GlobaleData *gameMap, int x, int y)
 {
 	gameMap->playerposition.x = x;
 	gameMap->playerposition.y = y;
-	if (gameMap->map.data[y][x] == 'N')
+	if (gameMap->map.data[y][x] == 'E')
 		gameMap->playerposition.angle = 0;
-	else if (gameMap->map.data[y][x] == 'S')
-		gameMap->playerposition.angle = 180;
-	else if (gameMap->map.data[y][x] == 'E')
-		gameMap->playerposition.angle = 90;
 	else if (gameMap->map.data[y][x] == 'W')
+		gameMap->playerposition.angle = 180;
+	else if (gameMap->map.data[y][x] == 'S')
+		gameMap->playerposition.angle = 90;
+	else if (gameMap->map.data[y][x] == 'N')
 		gameMap->playerposition.angle = 270;
 	gameMap->map.data[y][x] = '0';
 }

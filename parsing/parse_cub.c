@@ -3,29 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:55:15 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:28:32 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+void	free_split_result(char **split_result)
+{
+	size_t	i;
+
+	i = 0;
+	while (split_result[i] != NULL)
+	{
+		free(split_result[i]);
+		i++;
+	}
+	free(split_result);
+}
+
+int	check_name_cub_core(char **spt_rs)
+{
+	if (spt_rs[0] == NULL || spt_rs[1] == NULL)
+	{
+		free_split_result(spt_rs);
+		return (0);
+	}
+	if (ft_strncmp(spt_rs[1], "cub", 3) != 0 || ft_strlen(spt_rs[1]) != 3)
+	{
+		free_split_result(spt_rs);
+		return (0);
+	}
+	if (spt_rs[2] != NULL
+		&& (ft_strncmp(spt_rs[2], "cub", 3) != 0 || ft_strlen(spt_rs[2]) != 3))
+	{
+		free_split_result(spt_rs);
+		return (0);
+	}
+	free_split_result(spt_rs);
+	return (1);
+}
+
 int	check_name_cub(char *str)
 {
+	char	**spt_rs;
+	int		result;
+
 	if (str != NULL)
 	{
-		if (!ft_strchr(str, '.'))
+		spt_rs = ft_split(str, '.');
+		if (spt_rs == NULL)
 			return (0);
-		if (str[ft_strlen(str) - 4] != '.'
-			|| str[ft_strlen(str) - 3] != 'c'
-			|| str[ft_strlen(str) - 2] != 'u'
-			|| str[ft_strlen(str) - 1] != 'b'
-			|| str[ft_strlen(str) - 5] == 47)
-			return (0);
+		result = check_name_cub_core(spt_rs);
+		return (result);
 	}
-	return (1);
+	return (0);
 }
 
 char	*fixline(char *line, int maxlen)
