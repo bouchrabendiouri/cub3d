@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/24 16:29:24 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:38:16 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,6 @@ int		ft_count_words(const char *str, char c);
 char	*ft_concat_split(char **split);
 void	ft_free_concat(char *concat);
 void	free_split_result(char **split_result);
-int		check_name_cub_core(char **spt_rs);
+int		find_last_dot_index(char **spt_rs);
 
 #endif

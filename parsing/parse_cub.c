@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:55:15 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/24 16:28:32 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:37:37 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,40 +25,45 @@ void	free_split_result(char **split_result)
 	free(split_result);
 }
 
-int	check_name_cub_core(char **spt_rs)
+int	find_last_dot_index(char **spt_rs)
 {
-	if (spt_rs[0] == NULL || spt_rs[1] == NULL)
+	int	last_dot_index;
+	int	i;
+
+	last_dot_index = -1;
+	i = 0;
+	while (spt_rs[i] != NULL)
 	{
-		free_split_result(spt_rs);
-		return (0);
+		last_dot_index = i;
+		i++;
 	}
-	if (ft_strncmp(spt_rs[1], "cub", 3) != 0 || ft_strlen(spt_rs[1]) != 3)
-	{
-		free_split_result(spt_rs);
-		return (0);
-	}
-	if (spt_rs[2] != NULL
-		&& (ft_strncmp(spt_rs[2], "cub", 3) != 0 || ft_strlen(spt_rs[2]) != 3))
-	{
-		free_split_result(spt_rs);
-		return (0);
-	}
-	free_split_result(spt_rs);
-	return (1);
+	return (last_dot_index);
 }
 
 int	check_name_cub(char *str)
 {
 	char	**spt_rs;
-	int		result;
+	int		last_dot_index;
 
 	if (str != NULL)
 	{
 		spt_rs = ft_split(str, '.');
 		if (spt_rs == NULL)
 			return (0);
-		result = check_name_cub_core(spt_rs);
-		return (result);
+		last_dot_index = find_last_dot_index(spt_rs);
+		if (last_dot_index < 0 || last_dot_index == 0)
+		{
+			free_split_result(spt_rs);
+			return (0);
+		}
+		if (ft_strncmp(spt_rs[last_dot_index], "cub", 3) != 0
+			|| ft_strlen(spt_rs[last_dot_index]) != 3)
+		{
+			free_split_result(spt_rs);
+			return (0);
+		}
+		free_split_result(spt_rs);
+		return (1);
 	}
 	return (0);
 }
