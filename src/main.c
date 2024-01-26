@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 11:55:20 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/24 11:56:15 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:35:35 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	main(int ac, char **av)
 {
 	t_vars	vars;
 
+	
 	init(&vars, ac, av);
-	system("leaks Cub3d");
 	mlx_hook(vars.win, 17, 0, close_window, &vars);
 	mlx_hook(vars.win, 2, 0, key_press, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);

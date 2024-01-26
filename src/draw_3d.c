@@ -3,23 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   draw_3d.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:23:11 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/24 11:49:02 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:55:27 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	close_window(t_vars *vars)
+void    free_map_line(t_MapLine *lines)
 {
-	mlx_destroy_image(vars->mlx, vars->window_img->ptr);
+    t_MapLine *tmp;
+    
+    while (lines)
+    {
+        tmp = lines->next;
+        free(lines->content);
+        free(lines);
+        lines = tmp;    
+    }
+}
+
+void    free_map_data(char **data)
+{
+    int i;
+
+    i = 0;
+    while (data[i])
+    {
+        free(data[i]);
+        ++i;
+    }
+    free(data);
+}
+
+void   free_data_textures(t_GlobaleData *ptr) 
+{
+    free(ptr->north->path);
+    free(ptr->south->path);
+    free(ptr->east->path);
+    free(ptr->west->path);
+}
+
+int close_window(t_vars *vars)
+{
+    mlx_destroy_image(vars->mlx, vars->window_img->ptr);
+    free_data_textures(vars->data);
+	free_map_line(vars->data->mapline);
+    free_map_data(vars->data->map.data);
+    free_map_data(vars->data->file_content);
     free(vars->window_img);
-    free(vars->data);
-	free(vars->ray);
-	mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
+    free(vars->ray);
+    mlx_destroy_window(vars->mlx, vars->win);
+    system("leaks Cub3d");
+    exit(0);
 }
 
 int	rgb_to_int(int r, int g, int b)

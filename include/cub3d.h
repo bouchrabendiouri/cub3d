@@ -6,7 +6,7 @@
 /*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/25 10:43:17 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:53:02 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,5 +212,8 @@ char	*ft_concat_split(char **split);
 void	ft_free_concat(char *concat);
 void	free_split_result(char **split_result);
 int		find_last_dot_index(char **spt_rs);
+void	free_map_line(t_MapLine *lines);
+void   free_data_textures(t_GlobaleData *ptr);
+void    free_map_data(char **data);
 
 #endif
